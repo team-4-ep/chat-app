@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    database: "POSTGRESQL"
+    show-sql: "false"
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.PostgreSQLDialect"
+  datasource:
+    validationQuery: "SELECT 1"
+    platform:  "postgres"
+    url: "jdbc:postgresql://172.17.0.1:5400/testdb"
+    username: "chat"
+    password: "chat"
+    testWhileIdle: "true"
+  database.driverClassName: "org.postgresql.Driver"

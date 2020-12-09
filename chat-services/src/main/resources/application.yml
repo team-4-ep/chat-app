@@ -1,0 +1,39 @@
+
+spring:
+  cloud:
+  #stream.bindings is the start of the configuration needed for your service to publish to a Spring Cloud Stream message broke.
+    stream:
+      bindings:
+      #output is the name of your channel and maps to the Source.output() channel
+        output:
+            destination:  chatTopic
+            content-type: application/json
+# si nn ki t7eb tasna3 plus que one channel or custom channel name u use this conf
+        inboundChatChanges:
+          destination: chatTopic
+          content-type: application/json
+          group: chatGroup
+#    ki t7eb testaamil default channel testa3mil l conf hedhi 
+#        input:
+#            destination:  chatTopic
+#            content-type: application/json
+#            group: chatGroup
+        kafka:
+          binder:
+            zkNodes: localhost
+            brokers: localhost
+
+  jpa:
+    database: "POSTGRESQL"
+    show-sql: "false"
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.PostgreSQLDialect"
+  datasource:
+    validationQuery: "SELECT 1"
+    platform:  "postgres"
+    url: "jdbc:postgresql://172.17.0.1:5400/testdb"
+    username: "chat"
+    password: "chat"
+    testWhileIdle: "true"
+  database.driverClassName: "org.postgresql.Driver"
