@@ -25,6 +25,8 @@ public class Message implements Serializable {
     @Column(name = "type", nullable = true)
     private String type;
     
+    @Column(name = "to", nullable = true)
+    private String to;
 
     
 	public String getCode() {
@@ -45,6 +47,12 @@ public class Message implements Serializable {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public String getTo() {
+		return to;
+	}
+	public void setTo(String to) {
+		this.to = to;
 	}
     
 }

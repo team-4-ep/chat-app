@@ -23,7 +23,12 @@
     <docker.image.name>oussamafaleh/eniso-chat-service</docker.image.name>
     <docker.image.tag>${env.BUILD_NAME}</docker.image.tag>
   </properties>
-	<dependencies>
+
+    <dependencies>
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

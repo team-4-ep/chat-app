@@ -1,23 +1,30 @@
-import React, { useState } from 'react'
-import "./App.css";
-import Form from './Components/LoginForm';
-import SyntaxCode from './Components/SyntaxCode';
-
+import React, { useState } from 'react';
+import SockJsClient from 'react-stomp';
+import './App.css';
+import Input from './components/Input/Input';
+import LoginForm from './components/LoginForm';
+import Messages from './components/Messages/Messages';
 import chatAPI from './services/chatapi';
-const SOCKET_URL = 'http://localhost:8080/ws-chat/';
+import { randomColor } from './utils/common';
 
-function App() {
-  const [messages, setMessages] = useState("")
+
+const SOCKET_URL = 'http://localhost:8085/ws-chat/';
+
+const App = () => {
+  const [messages, setMessages] = useState([])
   const [user, setUser] = useState(null)
+
   let onConnected = () => {
     console.log("Connected!!")
   }
+
   let onMessageReceived = (msg) => {
-    console.log('New Message Received!!', msg);
-    setMessages(messages.concat(msg));
+    console.log('New Message Received!!', msg.type);
+    setMessages(messages.concat(msg.type));
   }
+
   let onSendMessage = (msgText) => {
-    chatAPI.sendMessage(user.username, msgText).then(res => {
+    chatAPI.sendMessage(user.username, msgText.type).then(res => {
       console.log('Sent', res);
     }).catch(err => {
       console.log('Error Occured while sending message to api');
@@ -33,29 +40,31 @@ function App() {
     })
 
   }
+
   return (
     <div className="App">
-      <h1>React Code Syntax</h1>
       {!!user ?
-        ( 
-        <>
-          <SockJsClient
-            url={SOCKET_URL}
-            topics={['/topic/group']}
-            onConnect={onConnected}
-            onDisconnect={console.log("Disconnected!")}
-            onMessage={msg => onMessageReceived(msg)}
-            debug={false}
-          />
-          <div style={{width:'600px'}}>
-            <SyntaxCode messages={messages} currentUser={user} />
-          </div>
-      <Form setTextCode={setTextCode} onSendMessage={onSendMessage} />
-      </>
-  ) :
-  <LoginForm onSubmit={handleLoginSubmit} />
+        (
+          <>
+            <SockJsClient
+              url={SOCKET_URL}
+              topics={['/topic/group']}
+              onConnect={onConnected}
+              onDisconnect={console.log("Disconnected!")}
+              onMessage={msg => onMessageReceived(msg)}
+              debug={false}
+            />
+            <Messages
+              messages={messages}
+              currentUser={user}
+            />
+            <Input onSendMessage={onSendMessage} />
+          </>
+        ) :
+        <LoginForm onSubmit={handleLoginSubmit} />
+      }
+    </div>
+  )
 }
-</div >
-)
-}
+
 export default App;

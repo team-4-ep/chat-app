@@ -8,14 +8,17 @@ public class MessageChangeModel {
 
     private String type;
     
+    private String to;
 	
     public MessageChangeModel() {
 		super();
     }
-    public MessageChangeModel(String code, String message, String type) {
+    public MessageChangeModel(String code, String message, String type, String to) {
+		super();
 		this.code = code;
 		this.message = message;
 		this.type = type;
+		this.to = to;
 	}
 
     
@@ -37,6 +40,14 @@ public class MessageChangeModel {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	
+	public String getTo() {
+		return to;
+	}
+	public void setTo(String to) {
+		this.to = to;
 	}
 	@Override
 	public String toString() {
