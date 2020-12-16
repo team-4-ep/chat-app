@@ -1,0 +1,4 @@
+FROM postgres
+ENV POSTGRES_USER chat 
+ENV POSTGRES_PASSWORD chat 
+ENV POSTGRES_DB testdb 
