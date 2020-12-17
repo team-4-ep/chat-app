@@ -2,8 +2,12 @@ import * as actionTypes from "./actionTypes";
 import axios from "axios";
 
 export const sendMessage = (msg) => (dispatch) => {
+  const message={
+    sender : "nedra",
+    message : msg
+  }
   axios
-  .post("http://localhost:8085/chat/send", msg)
+  .post("http://localhost:8085/chat/send", message)
   .then((res) => res.data)
   .then((msg) =>
     dispatch({
@@ -17,7 +21,7 @@ export const sendMessage = (msg) => (dispatch) => {
 export const addMessage = (msg) => (dispatch) => {
   dispatch({
     type: actionTypes.ADD_MESSAGE,
-    message: msg.type,
+    message: msg.message,
   });
 };
 
