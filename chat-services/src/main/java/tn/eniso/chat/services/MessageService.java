@@ -21,6 +21,6 @@ public class MessageService {
     	msg.setCode(UUID.randomUUID().toString());
 
     //	msgRepository.save(msg);
-        simpleSourceBean.publishOrgChange(msg.getCode(),msg.getType(),msg.getMessage(),msg.getTo());
+        simpleSourceBean.publishOrgChange(msg.getCode(),msg.getSender(),msg.getMessage());
     }
 }

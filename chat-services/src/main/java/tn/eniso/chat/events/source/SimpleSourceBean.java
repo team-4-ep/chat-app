@@ -22,13 +22,13 @@ public class SimpleSourceBean {
         this.source = source;
     }
 
-    public void publishOrgChange(String code,String type,String message,String to){
-       logger.debug("Sending Kafka message {} for Organization Id: {}", type, message);
+    public void publishOrgChange(String code,String sender,String message){
+       logger.debug("Sending Kafka message {} for Organization Id: {}", sender, message);
         MessageChangeModel change =  new MessageChangeModel(
         		code,
-        		type,
         		message,
-        		to);
+        		sender
+        		);
 
         source.output().send(MessageBuilder.withPayload(change).build());
     }
