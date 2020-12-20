@@ -22,11 +22,9 @@ public class Message implements Serializable {
     @Column(name = "message", nullable = false)
 	private String message;
 
-    @Column(name = "type", nullable = true)
-    private String type;
+    @Column(name = "sender", nullable = true)
+    private String sender;
     
-    @Column(name = "to", nullable = true)
-    private String to;
 
     
 	public String getCode() {
@@ -36,23 +34,17 @@ public class Message implements Serializable {
 		this.code = code;
 	}
 
-	public String getType() {
-		return type;
+	public String getSender() {
+		return sender;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setSender(String sender) {
+		this.sender = sender;
 	}
 	public String getMessage() {
 		return message;
 	}
 	public void setMessage(String message) {
 		this.message = message;
-	}
-	public String getTo() {
-		return to;
-	}
-	public void setTo(String to) {
-		this.to = to;
 	}
     
 }

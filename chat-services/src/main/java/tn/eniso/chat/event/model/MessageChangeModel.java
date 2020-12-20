@@ -6,19 +6,18 @@ public class MessageChangeModel {
 
 	private String message;
 
-    private String type;
+    private String sender;
     
     private String to;
 	
     public MessageChangeModel() {
 		super();
     }
-    public MessageChangeModel(String code, String message, String type, String to) {
+    public MessageChangeModel(String code, String message, String sender) {
 		super();
 		this.code = code;
 		this.message = message;
-		this.type = type;
-		this.to = to;
+		this.sender = sender;
 	}
 
     
@@ -29,11 +28,11 @@ public class MessageChangeModel {
 		this.code = code;
 	}
 
-	public String getType() {
-		return type;
+	public String getSender() {
+		return sender;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setSender(String sender) {
+		this.sender = sender;
 	}
 	public String getMessage() {
 		return message;
@@ -43,16 +42,10 @@ public class MessageChangeModel {
 	}
 	
 	
-	public String getTo() {
-		return to;
-	}
-	public void setTo(String to) {
-		this.to = to;
-	}
 	@Override
 	public String toString() {
 		return "MessageChangeModel [code=" + code +
 				", message=" + message + 
-				", type=" + type + "]";
+				", sender=" + sender + "]";
 	}
 }
