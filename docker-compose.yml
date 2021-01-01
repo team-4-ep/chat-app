@@ -1,5 +1,50 @@
 version: '3'
 services:
+#   eurekaserver:
+#     image:   oussamafaleh/eniso-eurekasvr:test
+#     ports:
+#         - "8761:8761"
+#   configserver:
+#     image: oussamafaleh/eniso-confsvr:test
+#     #mem_limit: 1073741824
+#     ports:
+#       - "8888:8888"
+#     links:
+#       - "eurekaserver:eurekaserver"
+#     environment:
+#       EUREKASERVER_PORT: "8761"
+#       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+#       ENCRYPT_KEY:       "IMSYMMETRIC"
+#   zuulserver:
+#     image: oussamafaleh/eniso-zuulsvr:test
+#     ports:
+#       - "5555:5555"
+#     links:
+#       - "eurekaserver:eurekaserver"
+#       - "configserver:configserver"
+#     environment:
+#  #     PROFILE: "aws-dev"
+#       SERVER_PORT: "5555"
+#       EUREKASERVER_PORT: "8761"
+#       CONFIGSERVER_PORT: "8888"
+#       CONFIGSERVER_URI: "http://configserver:8888"
+#       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+#   authenticationservice:
+#     image: oussamafaleh/eniso-authentication-service:test
+#     ports:
+#       - "8901:8901"
+#     links:
+#       - "configserver:configserver"
+#       - "eurekaserver:eurekaserver"
+#       - "zuulserver:zuulserver"
+#     environment:
+#       PROFILE: "aws-dev"
+#       SERVER_PORT: "8901"
+#       CONFIGSERVER_PORT: "8888"
+#       EUREKASERVER_PORT: "8761"
+#       CONFIGSERVER_URI: "http://configserver:8888"
+#       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+#       ENCRYPT_KEY:       "IMSYMMETRIC"
   react-chat-front:
       container_name: react-chat-front
       build:
@@ -20,7 +65,11 @@ services:
     depends_on:
       - kafkaserver
     links:
+      - "react-chat-front:react-chat-front"
       - "kafkaserver:kafkaserver"
+      # - "configserver:configserver"
+      # - "eurekaserver:eurekaserver"
+      # - "zuulserver:zuulserver"
     environment:
       SERVER_PORT: "8085"
       KAFKASERVER_PORT: "9092"
@@ -36,6 +85,8 @@ services:
     ports:
       - 2181:2181
       - 9092:9092
+    links:
+      - "react-chat-front:react-chat-front"
     # chat-service:
     #   container_name: chat-service
     #   build:

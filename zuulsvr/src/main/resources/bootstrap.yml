@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: zuulservice
+  profiles:
+    active:
+      aws-dev
+  cloud:
+    config:
+      enabled: true
