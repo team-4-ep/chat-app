@@ -1,20 +1,25 @@
-version: '3'
+version: '2'
 services:
   react-chat-front:
-      container_name: react-chat-front
-      build:
-        context: ./React-front
-        dockerfile: Dockerfile
-      volumes:
-        - './React-front:/app'
-        - '/app/node_modules'
-      ports:
-        - 3001:3000
-      environment:
-        - CHOKIDAR_USEPOLLING=true
-      stdin_open: true
+    container_name: react-chat-front
+    build:
+      context: ./React-front
+      dockerfile: Dockerfile
+    volumes:
+      - './React-front:/app'
+      - '/app/node_modules'
+    ports:
+      - 3001:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    networks:
+      - backend
   chatservice:
-    image: oussamafaleh/eniso-chat-service:test
+    container_name: chatservice
+    build:
+      context: chat-services/target
+      dockerfile: Dockerfile
     ports:
       - "8085:8085"
     depends_on:
@@ -25,17 +30,25 @@ services:
       SERVER_PORT: "8085"
       KAFKASERVER_PORT: "9092"
       KAFKASERVER_URI: "kafkaserver"
-      ZKSERVER_URI: "kafkaserver"  
-  db:
-      build: psql
-      restart: always
-      ports:
-          - 5400:5432
+      ZKSERVER_URI: "kafkaserver"
+    networks:
+      - backend
+  pgsql:
+    container_name: pgsql
+    build: psql
+    restart: always
+    ports:
+      - 5400:5432
+    networks:
+      - backend
   kafkaserver:
+    container_name: kafkaserver
     image: spotify/kafka
     ports:
       - 2181:2181
       - 9092:9092
+    networks:
+      - backend
     # chat-service:
     #   container_name: chat-service
     #   build:
@@ -48,3 +61,6 @@ services:
     #     - 8001:8000
     #   environment:
     #     - CHOKIDAR_USEPOLLING=true
+
+networks:
+  backend:

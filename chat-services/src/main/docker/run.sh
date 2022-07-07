@@ -19,7 +19,7 @@ getPort() {
 echo "************************  $@ ********************************"
 echo "Waiting for the kafka server to start on port  $(getPort $KAFKASERVER_PORT)"
 echo "********************************************************"
-while ! `nc -z kafkaserver  $(getPort $KAFKASERVER_PORT)`; do sleep 10; done
+while ! `nc -z kafkaserver  $(getPort $KAFKASERVER_PORT)` || ! `nc -z pgsql 5432`; do sleep 10; done
 echo "******* Kafka Server has started on $(getPort $KAFKASERVER_PORT)"
 
 echo "********************************************************"
